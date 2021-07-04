@@ -127,7 +127,7 @@
                 android:padding="15dp" />
 
             <Button
-                android:id="@+id/createAccount"
+                android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -137,7 +137,7 @@
                 app:backgroundTint="#D67583" />
 
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/loginCreateAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
