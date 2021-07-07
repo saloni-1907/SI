@@ -3,11 +3,13 @@ package com.example.quizzyme;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.quizzyme.databinding.ActivityMainBinding;
@@ -19,43 +21,49 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    FirebaseFirestore database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //setSupportActionBar(binding.titleProject);
-        database= FirebaseFirestore.getInstance();
-        ArrayList<CategoryModel> categories=new ArrayList<>();
-//        categories.add(new CategoryModel("","Mathematics","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-//        categories.add(new CategoryModel("","Science","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-//        categories.add(new CategoryModel("","History","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-//        categories.add(new CategoryModel("","English","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-//        categories.add(new CategoryModel("","Geography","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-//        categories.add(new CategoryModel("","Civics","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT4ZlJ8SOMkPPAdLBzCCcJa4MCmI0yVnPtiA&usqp=CAU"));
-        CategoryAdapter adapter=new CategoryAdapter(this,categories);
-        database.collection("categories")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        categories.clear();
-                        for(DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments())
-                        {
-                            CategoryModel model=snapshot.toObject(CategoryModel.class);
-                            model.setCategoryId(snapshot.getId());
-                            categories.add(model);
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-        binding.categoryList.setLayoutManager(new GridLayoutManager(this,2));
-        binding.categoryList.setAdapter(adapter);
+        setSupportActionBar(binding.toolbar);
+        FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content,new HomeFragment());
+        transaction.commit();
+       binding.bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+           @Override
+           public boolean onItemSelect(int i) {
+               FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+               switch(i)
+               {
+                   case 0:
+                       transaction.replace(R.id.content,new HomeFragment());
+                       transaction.commit();
+                       break;
+                   case 1:
+                       transaction.replace(R.id.content,new LeaderboardsFragment());
+                       transaction.commit();
+                       break;
+                   case 2:
+                       transaction.replace(R.id.content,new WalletFragment());
+                       transaction.commit();
+                       break;
+                   case 3:
+                       transaction.replace(R.id.content,new ProfileFragment());
+                       transaction.commit();
+                       break;
+               }
+               return false;
+           }
+       });
+
 
     }
 
