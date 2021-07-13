@@ -1,16 +1,16 @@
 package com.example.quizzyme;
 
 public class User {
-    private String name,email,pass,referalCode;
+    private String name,email,pass,profile;
     private long coins=25;
     public User() {
     }
 
-    public User(String name, String email, String pass, String referalCode) {
+    public User(String name, String email, String pass) {
         this.name = name;
         this.email = email;
         this.pass = pass;
-        this.referalCode = referalCode;
+
     }
 
     public String getName() {
@@ -37,12 +37,12 @@ public class User {
         this.pass = pass;
     }
 
-    public String getReferalCode() {
-        return referalCode;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setReferalCode(String referalCode) {
-        this.referalCode = referalCode;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public long getCoins() {

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                        transaction.commit();
                        break;
                    case 1:
-                       transaction.replace(R.id.content,new LeaderboardsFragment());
+                       transaction.replace(R.id.content,new LeaderboardFragment());
                        transaction.commit();
                        break;
                    case 2:
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.wallet)
         {
-            Toast.makeText(this,"Toast is Clicked!",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"Toast is Clicked!",Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

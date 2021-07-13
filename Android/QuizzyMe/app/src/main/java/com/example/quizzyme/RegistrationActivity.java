@@ -42,9 +42,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 email=binding.emailBox.getText().toString();
                 pass=binding.passBox.getText().toString();
                 name=binding.nameBox.getText().toString();
-                code=binding.codeBox.getText().toString();
 
-                User user=new User(name,email,pass,code);
+
+                User user=new User(name,email,pass);
                 dialog.show();
                 dialog.setMessage("Creating account...");
                 auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
